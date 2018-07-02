@@ -1,6 +1,6 @@
 <template>
     <div class="main">
-        <h1>/{{ msg }}</h1>
+        <h1>\{{ msg }}</h1>
         <van-button type="primary">哈喽 你好！</van-button>
     </div>
 </template>
