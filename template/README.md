@@ -1,8 +1,8 @@
-# admin
+# 项目名称 {{ name }}
 
-> Merculet---SAAS平台
+> 描述 {{ description }}
 
-> author wenquan.huang@magicwindow.cn
+> 作者 {{ author }}
 
 
 ## Build Setup
