@@ -78,7 +78,7 @@ To get started:
       )}${lintMsg(data)}npm run dev`
     )}
   
-Documentation can be found at https://vuejs-templates.github.io/webpack
+    文档可以在https://github.com/sheyude/vue-h5-template找到
 `
   console.log(message)
 }
