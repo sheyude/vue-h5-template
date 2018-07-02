@@ -102,7 +102,7 @@ function lintMsg(data) {
  * @param {Object} data Data from the questionnaire
  */
 function installMsg(data) {
-  return !data.autoInstall ? 'npm install (or if using yarn: yarn)\n  ' : ''
+  return !data.autoInstall ? '使用 npm install 或者yarn 进行安装\n  ' : ''
 }
 
 /**

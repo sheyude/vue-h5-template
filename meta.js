@@ -37,33 +37,33 @@ module.exports = {
       when: 'isNotTest',
       type: 'string',
       required: true,
-      message: 'Project name',
+      message: '项目名称',
     },
     description: {
       when: 'isNotTest',
       type: 'string',
       required: false,
-      message: 'Project description',
-      default: 'A Vue.js project',
+      message: '项目介绍',
+      default: 'Merculet Project Vue',
     },
     author: {
       when: 'isNotTest',
       type: 'string',
-      message: 'Author',
+      message: '作者',
     },
     build: {
       when: 'isNotTest',
       type: 'list',
-      message: 'Vue build',
+      message: 'Vue 编译',
       choices: [
         {
-          name: 'Runtime + Compiler: recommended for most users',
+          name: '运行时+编译器：建议大多数用户使用',
           value: 'standalone',
           short: 'standalone',
         },
         {
           name:
-            'Runtime-only: about 6KB lighter min+gzip, but templates (or any Vue-specific HTML) are ONLY allowed in .vue files - render functions are required elsewhere',
+            '仅适用于运行时间：最小+ gzip约轻6KB，但模板（或任何特定于Vue的HTML）只能在.vue文件中使用 - 其他位置需要渲染功能',
           value: 'runtime',
           short: 'runtime',
         },
@@ -72,85 +72,26 @@ module.exports = {
     router: {
       when: 'isNotTest',
       type: 'confirm',
-      message: 'Install vue-router?',
-    },
-    lint: {
-      when: 'isNotTest',
-      type: 'confirm',
-      message: 'Use ESLint to lint your code?',
-    },
-    lintConfig: {
-      when: 'isNotTest && lint',
-      type: 'list',
-      message: 'Pick an ESLint preset',
-      choices: [
-        {
-          name: 'Standard (https://github.com/standard/standard)',
-          value: 'standard',
-          short: 'Standard',
-        },
-        {
-          name: 'Airbnb (https://github.com/airbnb/javascript)',
-          value: 'airbnb',
-          short: 'Airbnb',
-        },
-        {
-          name: 'none (configure it yourself)',
-          value: 'none',
-          short: 'none',
-        },
-      ],
-    },
-    unit: {
-      when: 'isNotTest',
-      type: 'confirm',
-      message: 'Set up unit tests',
-    },
-    runner: {
-      when: 'isNotTest && unit',
-      type: 'list',
-      message: 'Pick a test runner',
-      choices: [
-        {
-          name: 'Jest',
-          value: 'jest',
-          short: 'jest',
-        },
-        {
-          name: 'Karma and Mocha',
-          value: 'karma',
-          short: 'karma',
-        },
-        {
-          name: 'none (configure it yourself)',
-          value: 'noTest',
-          short: 'noTest',
-        },
-      ],
-    },
-    e2e: {
-      when: 'isNotTest',
-      type: 'confirm',
-      message: 'Setup e2e tests with Nightwatch?',
+      message: '是否安装路由 vue-router?',
     },
     autoInstall: {
       when: 'isNotTest',
       type: 'list',
       message:
-        'Should we run `npm install` for you after the project has been created? (recommended)',
+        '项目创建完成后，我们是否应该为你运行`npm install`？ （推荐的）',
       choices: [
         {
-          name: 'Yes, use NPM',
+          name: '是的，使用 NPM',
           value: 'npm',
           short: 'npm',
         },
         {
-          name: 'Yes, use Yarn',
+          name: '是的，使用 Yarn',
           value: 'yarn',
           short: 'yarn',
         },
         {
-          name: 'No, I will handle that myself',
+          name: '不，我会自己处理',
           value: false,
           short: 'no',
         },
