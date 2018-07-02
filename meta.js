@@ -1,92 +1,113 @@
 const path = require('path')
 const fs = require('fs')
+
 const {
   sortDependencies,
   installDependencies,
   runLintFix,
   printMessage,
 } = require('./utils')
+const pkg = require('./package.json')
+
+const templateVersion = pkg.version
+
+const { addTestAnswers } = require('./scenarios')
 
 module.exports = {
+  metalsmith: {
+    // When running tests for the template, this adds answers for the selected scenario
+    before: addTestAnswers
+  },
   helpers: {
-    if_or: function(v1, v2, options) {
+    if_or(v1, v2, options) {
+
       if (v1 || v2) {
         return options.fn(this)
       }
 
       return options.inverse(this)
     },
+    template_version() {
+      return templateVersion
+    },
   },
+  
   prompts: {
     name: {
+      when: 'isNotTest',
       type: 'string',
       required: true,
-      message: '请输入项目名称:',
+      message: 'Project name',
     },
     description: {
+      when: 'isNotTest',
       type: 'string',
       required: false,
-      message: '项目介绍',
-      default: 'sheyude project',
+      message: 'Project description',
+      default: 'A Vue.js project',
     },
     author: {
+      when: 'isNotTest',
       type: 'string',
-      message: '作者',
+      message: 'Author',
     },
     build: {
+      when: 'isNotTest',
       type: 'list',
-      message: 'Vue 编译模式',
+      message: 'Vue build',
       choices: [
         {
-          name: '运行时+编译器：建议大多数用户使用',
+          name: 'Runtime + Compiler: recommended for most users',
           value: 'standalone',
           short: 'standalone',
         },
         {
           name:
-            '仅适用于运行时间：最小+ gzip约轻6KB，但模板（或任何特定于Vue的HTML）只能在.vue文件中使用 - 其他位置需要渲染功能',
+            'Runtime-only: about 6KB lighter min+gzip, but templates (or any Vue-specific HTML) are ONLY allowed in .vue files - render functions are required elsewhere',
           value: 'runtime',
           short: 'runtime',
         },
       ],
     },
     router: {
+      when: 'isNotTest',
       type: 'confirm',
-      message: '是否安装 vue-router?',
+      message: 'Install vue-router?',
     },
     lint: {
+      when: 'isNotTest',
       type: 'confirm',
-      message: '是否启用 ESLint',
+      message: 'Use ESLint to lint your code?',
     },
     lintConfig: {
-      when: 'lint',
+      when: 'isNotTest && lint',
       type: 'list',
-      message: '选择一个 ESLint 预设',
+      message: 'Pick an ESLint preset',
       choices: [
         {
-          name: '推荐 (使用模板配置)',
-          value: 'none',
-          short: 'none',
-        },
-        {
-          name: '使用 Standard (https://github.com/standard/standard)',
+          name: 'Standard (https://github.com/standard/standard)',
           value: 'standard',
           short: 'Standard',
         },
         {
-          name: '使用 Airbnb (https://github.com/airbnb/javascript)',
+          name: 'Airbnb (https://github.com/airbnb/javascript)',
           value: 'airbnb',
           short: 'Airbnb',
         },
-        
+        {
+          name: 'none (configure it yourself)',
+          value: 'none',
+          short: 'none',
+        },
       ],
     },
     unit: {
+      when: 'isNotTest',
       type: 'confirm',
-      message: '设置单元测试',
+      message: 'Set up unit tests',
     },
     runner: {
-      when: 'unit',
+      when: 'isNotTest && unit',
       type: 'list',
       message: 'Pick a test runner',
       choices: [
@@ -108,26 +129,28 @@ module.exports = {
       ],
     },
     e2e: {
+      when: 'isNotTest',
       type: 'confirm',
       message: 'Setup e2e tests with Nightwatch?',
     },
     autoInstall: {
+      when: 'isNotTest',
       type: 'list',
       message:
-        '项目创建后，我们应该为您运行“NPM安装”吗？（推荐）',
+        'Should we run `npm install` for you after the project has been created? (recommended)',
       choices: [
         {
-          name: '使用 NPM',
+          name: 'Yes, use NPM',
           value: 'npm',
           short: 'npm',
         },
         {
-          name: '使用Yarn',
+          name: 'Yes, use Yarn',
           value: 'yarn',
           short: 'yarn',
         },
         {
-          name: '不，我自己处理。',
+          name: 'No, I will handle that myself',
           value: false,
           short: 'no',
         },
