@@ -56,7 +56,7 @@ module.exports = {
     },
     lint: {
       type: 'confirm',
-      message: '使用 TS 必须启用 ESLint',
+      message: '是否启用 ESLint',
     },
     lintConfig: {
       when: 'lint',
